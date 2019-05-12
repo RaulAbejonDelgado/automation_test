@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: Search in dogpile hip hop
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.275 s - in Search in dogpile hip hop
