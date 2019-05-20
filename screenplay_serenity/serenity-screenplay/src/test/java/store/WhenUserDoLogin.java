@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import store.actionstasks.LoginWith;
 import store.actionstasks.TheActorDecides;
-import store.questions.ThePageMyAccount;
+import store.questions.TheMyAccountPage;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -46,7 +46,7 @@ public class WhenUserDoLogin {
 
         //then
         actor.should(seeThat("My account subtitle",
-                                ThePageMyAccount.subtitle(),
+                                TheMyAccountPage.subtitle(),
                                 equalTo("Welcome to your account. Here you can manage all of your personal information and orders.")));
 
     }
