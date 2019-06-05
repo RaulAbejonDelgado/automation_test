@@ -19,3 +19,21 @@ Feature: CRUD User
     Examples:
       | username | password |
       | tester   | tester   |
+
+  Scenario Outline: DELETE user
+    Given I will delete a user sending delete action by id <id>
+    When after i will check the http response
+    Then the response status should be 200
+
+    Examples:
+      | id |
+      | 6   |
+
+  Scenario Outline: PUT user
+    Given i will update a user by id <id> with name <username> and password <password>
+    When  after i send update action i will process the response
+    Then the response status should be 200
+
+    Examples:
+      | id | username | password |
+      | 4        | admin    | admin3    |

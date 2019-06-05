@@ -19,8 +19,11 @@ public class UserAPISteps {
     private JsonPath jp = null; //JsonPath
     private RequestSpecification requestSpec;
     private List<User> users = new ArrayList<>();
-    User user ;
+    private User user ;
+    private String URL = "http://localhost:3000/user";
+    private int status = 0;
 
+    /*-----------Get-----------*/
     @Test
     @Step("doing get over api and check http request response")
     public void sendGetUsers() {
@@ -31,7 +34,7 @@ public class UserAPISteps {
         requestSpec = builder.build();
         requestSpec = RestAssured.given().spec(requestSpec);
         requestSpec.log().all();
-        res = requestSpec.when().get("http://localhost:3000/user");
+        res = requestSpec.when().get(URL);
 
     }
 
@@ -96,4 +99,59 @@ public class UserAPISteps {
 
     }
 
+    @Test
+    @Step("i will try delete the user with id -> {0}")
+    public void deleteUserById(int id) {
+        RequestSpecBuilder builder = new RequestSpecBuilder();
+        builder.setBasePath("user");
+        builder.setContentType("application/json");
+        requestSpec = builder.build();
+        requestSpec = RestAssured.given().spec(requestSpec);
+        res = requestSpec.when().delete(URL+"/"+id);
+
+        System.out.println(res);
+    }
+
+    @Test
+    @Step("im checking http response...")
+    public void afterIWillCheckTheHttpResponse() {
+        status = res.getStatusCode();
+
+    }
+
+
+    @Test
+    @Step("i evaluate status code {0}")
+    public void theResponseStatusShouldBeStatus(String status) {
+
+        switch (res.getStatusCode()) {
+            case 200 :
+                Assert.assertTrue(res.getStatusCode() == Integer.parseInt(status));
+        }
+    }
+
+    @Test
+    @Step("preparing data to send")
+    public void iWillUpdateAUserByIdId(int id, User u) {
+        RequestSpecBuilder builder = new RequestSpecBuilder();
+
+        builder.setBasePath("user");
+        builder.setContentType("application/json");
+        builder.setBody("{\"name\": \""+u.getName()+"\",\n" +
+                     "\"password\": \""+u.getPassword()+"\"}");
+
+        requestSpec = builder.build();
+        requestSpec = RestAssured.given().spec(requestSpec);
+        res = requestSpec.when().put(URL+"/"+id);
+
+
+    }
+
+    @Test
+    @Step("preparing data to send")
+    public void afterISendUpdateActionIWillProcessTheResponse() {
+
+        status = res.getStatusCode();
+
+    }
 }
