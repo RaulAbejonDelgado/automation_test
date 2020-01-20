@@ -51,7 +51,6 @@ public class StepUser extends ScenarioActor {
     @Step("#actor should see expected text : {0} in result with title: {1}")
     public void shouldBeHaveWikipediaResults(String resMessage, String resTitle ) {
         String text = resultsPage.getTextByTitle(resTitle);
-        System.out.println(text);
 
         assertThat(text, containsString(resMessage));
 
